@@ -18,5 +18,5 @@ contract name: (vk name)
 verify name: (vk name)
   bb verify -k {{target}}/{{name}}_vk
 
-gates name: compile
-  bb gates -b {{target}}/{{name}}.json | jq 'del(.functions[].gates_per_opcode)'
+gates: compile
+  for f in target/*.json; do echo "$f"; bb gates -b $f | jq '.functions[0].circuit_size'; done
